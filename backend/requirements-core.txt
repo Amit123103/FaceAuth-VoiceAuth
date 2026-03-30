@@ -1,5 +1,5 @@
 # ============================================================
-# FaceAuth — STABLE Serverless Dependencies (Vercel/Render)
+# FaceAuth — CORE Stable Dependencies
 # ============================================================
 
 # --- Web Framework ---
@@ -20,20 +20,23 @@ pyotp==2.9.0
 qrcode[pil]==8.0
 
 # --- Environment & Utilities ---
-# Loose versions allow pip to find the best match for your OS
 python-dotenv==1.0.1
 pydantic-settings==2.7.1
 python-dateutil==2.9.0
 apscheduler==3.10.4
 
-# --- Face Recognition (Lightweight) ---
-# We avoid dlib here to ensure stable builds on all platforms.
-# FaceAuth automatically falls back to OpenCV when dlib is missing.
+# --- Face Recognition (Core) ---
+# Loose versions allow pip to find the best match for your OS
 Pillow>=10.0.0
 numpy>=1.24.0
 opencv-python-headless>=4.8.0
 
-# --- Optional AI Packages ---
-# If you have C++ compilers, use requirements-full.txt for dlib support.
-# face-recognition
+# --- AI & Biometrics (Note: These may require C++ compilers) ---
+# If dlib fails, FaceAuth will automatically use OpenCV fallback
 # dlib
+# face-recognition
+
+# --- Testing ---
+pytest==8.3.4
+pytest-asyncio==0.24.0
+httpx==0.28.1

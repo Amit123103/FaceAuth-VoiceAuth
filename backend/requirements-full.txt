@@ -1,0 +1,39 @@
+# ============================================================
+# FaceAuth — FULL (Dlib/AI) Dependencies
+# ============================================================
+
+# Web Framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# Database
+sqlalchemy==2.0.36
+aiosqlite==0.20.0
+
+# Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.2.1
+cryptography==44.0.0
+pyotp==2.9.0
+qrcode[pil]==8.0
+
+# Environment
+python-dotenv==1.0.1
+pydantic-settings==2.7.1
+
+# AI & Face Recognition (REQUIRES C++ COMPILERS)
+face-recognition==1.3.0
+dlib==19.24.6
+opencv-python-headless>=4.8.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# AI Voice Models (Optional)
+# torch
+# speechbrain
+# transformers
+# librosa
+# soundfile
+# scipy

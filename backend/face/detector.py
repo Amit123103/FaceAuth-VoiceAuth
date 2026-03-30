@@ -9,9 +9,13 @@ from PIL import Image
 logger = logging.getLogger(__name__)
 
 # --- CONFIGURATION ---
-# Set to True only if dlib is perfectly installed. 
-# On Windows, False is safer (uses OpenCV fallback).
-FACE_REC_AVAILABLE = False 
+try:
+    import face_recognition
+    FACE_REC_AVAILABLE = True
+    logger.info("💎 High-Performance Biometric Engine: ENABLED (dlib/face_recognition)")
+except ImportError:
+    FACE_REC_AVAILABLE = False
+    logger.warning("⚠️ High-Performance Biometric Engine: DISABLED (dlib missing). Using OpenCV Basic Mode.")
 
 # Load OpenCV Haar Cascade for fallback detection
 try:
