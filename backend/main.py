@@ -131,6 +131,10 @@ async def favicon():
 
 from backend.routes.auth_routes import router as auth_router
 from backend.routes.user_routes import router as user_router
+from backend.database.database import engine, Base
+from backend.routes import auth_routes, user_routes, admin_routes
+import smtplib
+import ssl
 from backend.routes.face_routes import router as face_router
 from backend.routes.admin_routes import router as admin_router
 from backend.routes.voice_routes import router as voice_router
@@ -143,6 +147,36 @@ app.include_router(voice_router)
 
 
 # ── Health Check ─────────────────────────────────────────────
+
+@app.on_event("startup")
+async def startup_event():
+    """Perform startup health checks and database initialization."""
+    settings = get_settings()
+    logger.info(f"🚀 Starting {settings.app_name} in {settings.app_env} mode")
+    
+    # Check SMTP Health if enabled
+    if settings.email_backend == "smtp":
+        logger.info(f"🔍 Testing SMTP connection to {settings.smtp_host}:{settings.smtp_port}...")
+        try:
+            context = ssl.create_default_context()
+            if int(settings.smtp_port) == 465:
+                with smtplib.SMTP_SSL(settings.smtp_host, settings.smtp_port, context=context, timeout=5) as server:
+                    server.login(settings.smtp_user, settings.smtp_password)
+            else:
+                with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=5) as server:
+                    server.starttls(context=context)
+                    server.login(settings.smtp_user, settings.smtp_password)
+            logger.info("✅ SMTP Health: Secure Connection Established. Emails are READY.")
+        except Exception as e:
+            logger.error(f"❌ SMTP Health: Connection Failed ({type(e).__name__}). Check your .env credentials! Error: {e}")
+    else:
+        logger.info("ℹ️ Email System: Console Mode active (emails will print to terminal)")
+
+    # Initialize tables
+    async with engine.begin() as conn:
+        # await conn.run_sync(Base.metadata.drop_all) # Uncomment for clean reset
+        await conn.run_sync(Base.metadata.create_all)
+        logger.info("📅 Database Initialized")
 
 @app.get("/api/health")
 async def health_check():

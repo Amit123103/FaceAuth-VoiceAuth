@@ -9,7 +9,7 @@ import random
 import string
 from datetime import datetime, timezone, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, Request, status, Form, File, UploadFile
+from fastapi import APIRouter, Depends, HTTPException, Request, status, Form, File, UploadFile, BackgroundTasks
 import numpy as np
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from sqlalchemy import select, func
@@ -29,6 +29,7 @@ from backend.auth.rate_limiter import (
 )
 from backend.security.encryption import encrypt_face_encoding, decrypt_face_encoding
 from backend.security.totp import verify_totp
+from backend.security.email_alert import send_security_alert
 from backend.face.detector import process_registration_image, decode_base64_image, detect_faces, get_face_encoding
 from backend.face.matcher import compare_faces
 from backend.face.quality import assess_face_quality
@@ -104,6 +105,7 @@ class TokenResponse(BaseModel):
 async def register(
     request: Request,
     body: RegisterRequest,
+    background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -205,6 +207,19 @@ async def register(
 
     logger.info(f"New user registered: {user.username} (verification: {verification_code})")
 
+    # Security Alert: Welcome Email
+    background_tasks = BackgroundTasks()
+    background_tasks.add_task(
+        send_security_alert,
+        username=user.username,
+        email=user.email,
+        ip_address=get_client_ip(request),
+        user_agent=get_user_agent(request),
+        method="registration",
+        success=True,
+        alert_type="registration"
+    )
+
     return {
         "message": "Registration successful",
         "user_id": user.id,
@@ -220,6 +235,7 @@ async def register(
 async def login(
     request: Request,
     body: LoginRequest,
+    background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
     """Authenticate with username and password."""
@@ -238,6 +254,16 @@ async def login(
     # Check account lockout
     lock_msg = await check_account_lockout(user)
     if lock_msg:
+        background_tasks.add_task(
+            send_security_alert,
+            username=user.username,
+            email=user.email,
+            ip_address=get_client_ip(request),
+            user_agent=get_user_agent(request),
+            method="password",
+            success=False,
+            failure_reason="Account Temporarily Locked"
+        )
         raise HTTPException(
             status_code=status.HTTP_423_LOCKED,
             detail=lock_msg,
@@ -258,6 +284,19 @@ async def login(
         ))
 
         remaining = settings.max_login_attempts - (user.failed_login_count + 1)
+        
+        # Security Alert: Failed Password Attempt
+        background_tasks.add_task(
+            send_security_alert,
+            username=user.username,
+            email=user.email,
+            ip_address=get_client_ip(request),
+            user_agent=get_user_agent(request),
+            method="password",
+            success=False,
+            failure_reason="Incorrect Password"
+        )
+
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Invalid credentials. {max(0, remaining)} attempts remaining.",
@@ -277,7 +316,7 @@ async def login(
         }
 
     # Successful login
-    return await _create_session(user, "password", request, db)
+    return await _create_session(user, "password", request, db, background_tasks, alert_type="secure_password")
 
 
 # ── Face Login ───────────────────────────────────────────────
@@ -286,6 +325,7 @@ async def login(
 async def face_login(
     request: Request,
     body: FaceLoginRequest,
+    background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
     """Authenticate using face recognition only."""
@@ -373,7 +413,7 @@ async def face_login(
         }
 
     # Successful face login
-    session = await _create_session(matched_user, "face", request, db)
+    session = await _create_session(matched_user, "face", request, db, background_tasks, alert_type="biometric_face")
     session["face_match"] = {
         "confidence": float(match_result["confidence"]),
         "distance": float(match_result["distance"]),
@@ -387,6 +427,7 @@ async def face_login(
 async def verify_2fa(
     request: Request,
     body: Verify2FARequest,
+    background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
     """Verify TOTP 2FA code after initial authentication."""
@@ -413,9 +454,19 @@ async def verify_2fa(
         raise HTTPException(status_code=500, detail="Failed to verify 2FA")
 
     if not verify_totp(totp_secret, body.code):
+        background_tasks.add_task(
+            send_security_alert,
+            username=user.username,
+            email=user.email,
+            ip_address=get_client_ip(request),
+            user_agent=get_user_agent(request),
+            method="2fa_totp",
+            success=False,
+            failure_reason="Invalid 2FA Code"
+        )
         raise HTTPException(status_code=401, detail="Invalid 2FA code")
 
-    return await _create_session(user, "2fa", request, db)
+    return await _create_session(user, "2fa", request, db, background_tasks, alert_type="2fa_totp")
 
 
 # ── Token Refresh ────────────────────────────────────────────
@@ -509,6 +560,8 @@ async def _create_session(
     login_method: str,
     request: Request,
     db: AsyncSession,
+    background_tasks: BackgroundTasks,
+    alert_type: str = "login"
 ) -> dict:
     """Create tokens, log the login, and store the session."""
     # Reset failed logins
@@ -566,6 +619,18 @@ async def _create_session(
         ip_address=get_client_ip(request),
     ))
 
+    # Biometric transparency: Send security alert email in background
+    background_tasks.add_task(
+        send_security_alert,
+        username=user.username,
+        email=user.email,
+        ip_address=get_client_ip(request),
+        user_agent=get_user_agent(request),
+        method=login_method,
+        success=True,
+        alert_type=alert_type
+    )
+
     return {
         "access_token": access_token,
         "refresh_token": refresh_token,
@@ -586,6 +651,7 @@ async def _create_session(
 @router.post("/voice-login")
 async def voice_login(
     request: Request,
+    background_tasks: BackgroundTasks,
     voice_audio: UploadFile = File(...),
     phrase: str = Form(""),
     db: AsyncSession = Depends(get_db),
@@ -648,7 +714,7 @@ async def voice_login(
         )
         return {"requires_2fa": True, "temp_token": temp_token, "message": "2FA required"}
 
-    return await _create_session(best_user, "voice_only", request, db)
+    return await _create_session(best_user, "voice_only", request, db, background_tasks, alert_type="biometric_voice")
 
 # ── Multi-Modal Fusion Login ─────────────────────────────────
 
@@ -663,6 +729,7 @@ from backend.voice_biometrics.fusion_engine import evaluate_fusion
 @router.post("/fusion-login")
 async def fusion_login(
     request: Request,
+    background_tasks: BackgroundTasks,
     face_image: str = Form(...),
     voice_audio: UploadFile = File(...),
     phrase: str = Form(""),
@@ -781,7 +848,7 @@ async def fusion_login(
         }
 
     # Success Response
-    session = await _create_session(best_user, "face+voice_fusion", request, db)
+    session = await _create_session(best_user, "face+voice_fusion", request, db, background_tasks, alert_type="biometric_dual")
     session["auth_meta"] = {
         "fusion_score": float(highest_confidence)
     }

@@ -75,9 +75,11 @@ If you see `ERROR: Failed building wheel for dlib`, it's because `dlib` requires
    - Open `.env` and verify `DATABASE_URL` starts with `sqlite+aiosqlite://`
 
 5. **Run the Server**:
+
    ```powershell
    python -m backend.main
    ```
+
    The application will be available at `http://localhost:8000`.
 
 ## 🧪 Testing
@@ -86,6 +88,33 @@ Run the test suite using `pytest`:
 ```bash
 pytest backend/tests
 ```
+
+## 🚢 Deployment Guide
+
+FaceAuth is designed for distributed deployment with a split architecture.
+
+### 🌐 Frontend (Vercel)
+Vercel is recommended for the vanilla JS/HTML frontend due to its edge-network performance.
+
+1. **Root Directory**: Set to `frontend`.
+2. **Build Command**: `(skip)` (it's static).
+3. **Environment Variables**:
+   - `BACKEND_URL`: `https://your-backend.render.com` (Ensure this is updated in `frontend/js/utils.js`).
+
+### ⚙️ Backend (Render)
+Render provides a robust environment for FastAPI and Python dependencies.
+
+1. **Blueprint / Direct Config**:
+   - **Build Command**: `pip install -r backend/requirements.txt`
+   - **Start Command**: `gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app`
+2. **Persistence (SQLite)**:
+   - Since Render's disk is ephemeral, you must attach a **Persistent Disk** to the `/data` directory (where `faceauth.db` lives).
+   - Alternatively, update `DATABASE_URL` to point to a managed **Postgres** instance on Render.
+3. **Environment Variables**:
+   - `SECRET_KEY`: Long random string.
+   - `ALGORITHM`: `HS256`
+   - `DATABASE_URL`: `sqlite+aiosqlite:///data/faceauth.db` (if using disk).
+
 
 ## 🔒 Security Architecture
 

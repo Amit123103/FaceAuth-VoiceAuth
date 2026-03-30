@@ -106,10 +106,14 @@ def process_registration_image(base64_string: str) -> dict:
         
         if not face_locations:
             return {"success": False, "error": "No face detected"}
+        
+        # Robust Selection: Pick the largest face (by area) instead of failing on multiple detections
         if len(face_locations) > 1:
-            return {"success": False, "error": "Multiple faces detected"}
+            logger.warning(f"[REGISTRATION] Multiple faces ({len(face_locations)}) detected. Selecting largest face.")
+            face_locations = [max(face_locations, key=lambda f: (f[2] - f[0]) * (f[1] - f[3]))]
             
-        encoding = get_face_encoding(image, face_locations[0])
+        primary_face = face_locations[0]
+        encoding = get_face_encoding(image, primary_face)
         
         return {
             "success": True,
