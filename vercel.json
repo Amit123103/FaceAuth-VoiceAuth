@@ -20,15 +20,27 @@
       "dest": "/frontend/assets/$1"
     },
     {
-      "src": "/(index.html|login|register|dashboard|admin|favicon.ico)",
-      "dest": "backend/main.py"
-    },
-    {
       "src": "/api/(.*)",
       "dest": "backend/main.py"
     },
     {
-      "src": "/",
+      "src": "/login",
+      "dest": "backend/main.py"
+    },
+    {
+      "src": "/register",
+      "dest": "backend/main.py"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "backend/main.py"
+    },
+    {
+      "src": "/admin",
+      "dest": "backend/main.py"
+    },
+    {
+      "src": "/(.*)",
       "dest": "backend/main.py"
     }
   ]
