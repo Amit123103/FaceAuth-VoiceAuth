@@ -1,0 +1,406 @@
+2026-03-30 17:28:21.352697 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:21.375317 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:21.709381 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:21.718665 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:21.786456 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:21.813455 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:21.967689 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.028485 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.077194 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.091526 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.147244 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.198559 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.294674 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.388026 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.510738 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.574019 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.660565 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.669453 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.722258 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.769499 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.918426 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:22.978577 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.022638 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.073985 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.133501 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.324253 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.340491 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.480269 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.500127 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.557779 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.652719 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.670803 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.730149 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.924657 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.932235 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:23.998502 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.050902 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.074124 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.138962 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.355366 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.370771 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.516292 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.539812 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.549475 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.675093 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.695927 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.758152 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.841118 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.858998 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.925591 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:24.994917 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.012397 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.081127 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.168361 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.275076 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.342734 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.409702 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.420006 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.487845 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.544225 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.858131 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:25.935308 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.186778 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.312003 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.384883 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.516166 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.783884 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.864141 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.936405 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:26.953720 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.299547 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.307797 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.407528 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.458369 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.541459 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.618562 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.675857 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.691685 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.760810 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.848191 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.920362 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:27.991455 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.055687 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.079046 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.170893 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.233293 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.350615 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.422139 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.486967 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.540914 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.612489 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.790596 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.808664 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.972832 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:28.991942 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.074678 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.150242 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.182606 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.270970 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.465623 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.483531 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.638236 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.656782 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.743039 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.811190 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.858947 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:29.931692 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.124803 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.143387 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.304998 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.323865 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.413719 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.482967 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.509478 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.585806 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.794598 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.814461 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:30.956984 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.003526 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.088109 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.159836 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.191292 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.266853 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.343773 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.474914 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.555805 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.660540 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.679992 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.925642 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:31.944931 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.029866 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.104912 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.122011 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.220717 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.548682 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.596153 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.687888 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:32.874921 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.066077 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.164982 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.244214 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.255124 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.610737 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.638891 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.748173 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.874017 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.883638 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:33.990597 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:34.095887 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:34.406719 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:34.509440 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:34.752675 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:34.907323 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:34.963845 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.088764 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.129187 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.320722 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.328578 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.415110 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.485568 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.535035 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.578330 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.690100 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.767738 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.828756 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.868975 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.946430 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:35.987904 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.065957 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.179568 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.228183 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.388438 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.395928 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.574465 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.582862 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.743015 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.776339 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.817723 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.932939 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:36.976727 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.017078 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.069563 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.161693 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.207080 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.254761 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.366061 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.409475 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.448166 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.555571 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.596800 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.631376 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.759229 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.803628 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.945266 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:37.962700 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.153271 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.159838 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.305751 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.337678 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.377999 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.506417 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.537946 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.579854 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.625795 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.725112 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.767234 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.824170 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.929668 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:38.982409 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.011524 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.121372 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.171350 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.216694 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.322584 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.366102 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.527315 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.543373 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.717040 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.726038 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.899444 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.931845 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:39.972427 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.072669 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.103826 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.144166 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.241834 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.320894 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.362047 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.396017 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.491277 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.534235 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.564240 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.708641 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.748716 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.885113 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:40.891232 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.090353 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.100088 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.242685 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.274567 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.317219 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.447635 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.478522 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.518452 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.560203 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.666263 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.708920 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.767151 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.870530 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.913461 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:41.957978 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.054764 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.095362 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.126519 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.256213 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.305307 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.430447 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.444182 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.671385 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.681043 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.787839 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.820915 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:42.872698 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.022359 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.071702 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.114376 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.166093 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.210812 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.252616 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.350909 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.474974 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.525327 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.604182 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.613227 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.681880 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.863204 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.905803 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.955588 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:43.988785 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.030358 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.260509 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.268573 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.334868 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.394677 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.402489 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.664118 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.673333 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.752536 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.791131 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:44.834484 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.024013 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.055005 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.113466 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.182369 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.189095 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.350374 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.466484 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.532676 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.598292 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.608425 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.654837 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.690188 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:45.977986 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.022206 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.308367 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.387832 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.639665 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.720446 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.766966 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.803063 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:46.956188 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.067388 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.115888 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.158325 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.303537 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.335833 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.376321 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.406203 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.521609 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.564853 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.634111 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.712346 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.748915 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.903098 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.911748 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:47.957989 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:48.088951 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:28:48.096324 | CRASH: TypeError: can't compare offset-naive and offset-aware datetimes
+2026-03-30 17:31:17.450316 | CRASH: NameError: name 'base64' is not defined
+2026-03-30 17:31:22.765890 | CRASH: NameError: name 'base64' is not defined
+2026-03-30 21:34:05.639555 | CRASH: ValueError: shapes (192,) and (384,) not aligned: 192 (dim 0) != 384 (dim 0)
+2026-03-30 21:34:16.071036 | CRASH: ValueError: shapes (192,) and (384,) not aligned: 192 (dim 0) != 384 (dim 0)
+2026-03-30 21:37:44.903943 | CRASH: ValueError: shapes (192,) and (384,) not aligned: 192 (dim 0) != 384 (dim 0)
+2026-03-30 21:46:59.562704 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.face_registered = 1 AND users.is_active = 1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:47:04.543490 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.face_registered = 1 AND users.is_active = 1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:51:02.220989 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.face_registered = 1 AND users.is_active = 1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:51:40.726299 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:51:49.988084 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:51:51.387299 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:51:51.598183 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:51:51.847142 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:53:08.741950 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ?]
+[parameters: ('amit12',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:56:29.792808 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:56:31.865839 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 21:56:37.850221 | CRASH: OperationalError: (sqlite3.OperationalError) no such column: users.voice_phrase_encrypted
+[SQL: SELECT users.id, users.username, users.email, users.password_hash, users.face_encoding_encrypted, users.face_encoding_iv, users.encryption_salt, users.face_registered, users.voice_registered, users.voice_embedding_encrypted, users.voice_phrase_hash, users.voice_phrase_encrypted, users.voice_phrase_iv, users.spoof_detection_score, users.authentication_confidence_score, users.is_active, users.is_admin, users.is_verified, users.verification_code, users.verification_expires, users.is_2fa_enabled, users.totp_secret_encrypted, users.recovery_codes_encrypted, users.failed_login_count, users.locked_until, users.last_login, users.last_password_change, users.created_at, users.updated_at 
+FROM users 
+WHERE users.username = ? OR users.email = ?]
+[parameters: ('amit12', 'amitsingh6394366374@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-30 22:04:04.599461 | CRASH: ValueError: shapes (192,) and (384,) not aligned: 192 (dim 0) != 384 (dim 0)
+2026-03-30 22:04:10.093736 | CRASH: ValueError: shapes (192,) and (384,) not aligned: 192 (dim 0) != 384 (dim 0)
+2026-03-30 22:04:17.963662 | CRASH: ValueError: shapes (192,) and (384,) not aligned: 192 (dim 0) != 384 (dim 0)
+2026-03-30 22:15:56.453222 | CRASH: TypeError: unsupported operand type(s) for -: 'dict' and 'float'

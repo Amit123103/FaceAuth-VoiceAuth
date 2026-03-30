@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FaceAuth Admin Panel — Manage users, audit logs, and system backups.">
+    <title>FaceAuth — Admin Panel</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+</head>
+<body>
+    <div class="bg-particles"></div>
+
+    <nav class="navbar">
+        <a href="/admin" class="navbar-brand">
+            <div class="logo-icon" style="background: var(--gradient-warm);">⚙️</div>
+            <span class="gradient-text">Admin Panel</span>
+        </a>
+        <div class="navbar-actions">
+            <a href="/dashboard" class="btn btn-ghost btn-sm">← Dashboard</a>
+            <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li><button class="sidebar-link active" data-section="admin-stats" onclick="showAdminSection('admin-stats')">📊 Overview</button></li>
+                <li><button class="sidebar-link" data-section="admin-users" onclick="showAdminSection('admin-users')">👥 Users</button></li>
+                <li><button class="sidebar-link" data-section="admin-audit" onclick="showAdminSection('admin-audit')">📋 Audit Logs</button></li>
+                <li><button class="sidebar-link" data-section="admin-backups" onclick="showAdminSection('admin-backups')">💾 Backups</button></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <!-- Stats -->
+            <section id="section-admin-stats">
+                <div class="page-header">
+                    <h1 class="page-title">System Overview</h1>
+                    <p class="page-subtitle">Real-time platform statistics</p>
+                </div>
+                <div class="dashboard-grid" id="admin-stats-grid">
+                    <div class="card stat-card"><div class="stat-icon cyan">👥</div><div><div class="stat-value" id="a-total-users">—</div><div class="stat-label">Total Users</div></div></div>
+                    <div class="card stat-card"><div class="stat-icon green">✓</div><div><div class="stat-value" id="a-active-users">—</div><div class="stat-label">Active Users</div></div></div>
+                    <div class="card stat-card"><div class="stat-icon purple">📸</div><div><div class="stat-value" id="a-face-reg">—</div><div class="stat-label">Face Registered</div></div></div>
+                    <div class="card stat-card"><div class="stat-icon orange">🖥️</div><div><div class="stat-value" id="a-sessions">—</div><div class="stat-label">Active Sessions</div></div></div>
+                    <div class="card stat-card"><div class="stat-icon green">🔐</div><div><div class="stat-value" id="a-logins">—</div><div class="stat-label">Successful Logins</div></div></div>
+                    <div class="card stat-card"><div class="stat-icon red">⚠️</div><div><div class="stat-value" id="a-failed">—</div><div class="stat-label">Failed Logins</div></div></div>
+                </div>
+            </section>
+
+            <!-- Users -->
+            <section id="section-admin-users" class="hidden">
+                <div class="page-header flex justify-between items-center">
+                    <div>
+                        <h1 class="page-title">Users</h1>
+                        <p class="page-subtitle">Manage registered users</p>
+                    </div>
+                    <input type="text" class="form-input" placeholder="Search users..." style="max-width: 250px;" id="user-search" oninput="searchUsers()">
+                </div>
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Username</th><th>Email</th><th>Face</th><th>2FA</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="users-table-body"><tr><td colspan="6" class="text-center text-muted">Loading...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audit Logs -->
+            <section id="section-admin-audit" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Audit Logs</h1>
+                    <p class="page-subtitle">System-wide activity tracking</p>
+                </div>
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Time</th><th>Action</th><th>User ID</th><th>IP</th><th>Details</th></tr></thead>
+                            <tbody id="audit-table-body"><tr><td colspan="5" class="text-center text-muted">Loading...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Backups -->
+            <section id="section-admin-backups" class="hidden">
+                <div class="page-header flex justify-between items-center">
+                    <div>
+                        <h1 class="page-title">Backups</h1>
+                        <p class="page-subtitle">Database backup management</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="triggerBackup()">💾 Create Backup</button>
+                </div>
+                <div id="backups-list" class="flex flex-col gap-4">
+                    <div class="card text-muted text-center">Loading...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/storage.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        function showAdminSection(section) {
+            document.querySelectorAll('.main-content > section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`section-${section}`).classList.remove('hidden');
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+        }
+
+        async function loadAdminStats() {
+            try {
+                const data = await AuthManager.apiRequest('/api/admin/stats');
+                document.getElementById('a-total-users').textContent = data.total_users;
+                document.getElementById('a-active-users').textContent = data.active_users;
+                document.getElementById('a-face-reg').textContent = data.face_registered;
+                document.getElementById('a-sessions').textContent = data.active_sessions;
+                document.getElementById('a-logins').textContent = data.total_logins;
+                document.getElementById('a-failed').textContent = data.failed_logins;
+            } catch (e) {
+                showToast('Failed to load stats: ' + e.message, 'error');
+            }
+        }
+
+        async function loadUsers(search = '') {
+            try {
+                const url = search ? `/api/admin/users?search=${encodeURIComponent(search)}` : '/api/admin/users';
+                const data = await AuthManager.apiRequest(url);
+                const tbody = document.getElementById('users-table-body');
+                if (!data.users.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No users found</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = data.users.map(u => `
+                    <tr>
+                        <td><strong>${u.username}</strong></td>
+                        <td>${u.email}</td>
+                        <td>${u.face_registered ? '<span class="badge badge-success">✓</span>' : '<span class="badge badge-warning">✗</span>'}</td>
+                        <td>${u.is_2fa_enabled ? '<span class="badge badge-success">On</span>' : '<span class="badge badge-info">Off</span>'}</td>
+                        <td>${u.is_locked ? '<span class="badge badge-danger">Locked</span>' : u.is_active ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>'}</td>
+                        <td>
+                            <div class="flex gap-2">
+                                <button class="btn btn-ghost btn-sm" onclick="toggleLock('${u.id}')">${u.is_locked ? '🔓' : '🔒'}</button>
+                                <button class="btn btn-ghost btn-sm text-danger" onclick="deleteUser('${u.id}', '${u.username}')">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                showToast('Failed to load users: ' + e.message, 'error');
+            }
+        }
+
+        let searchTimeout;
+        function searchUsers() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                loadUsers(document.getElementById('user-search').value);
+            }, 300);
+        }
+
+        async function toggleLock(userId) {
+            try {
+                await AuthManager.apiRequest(`/api/admin/users/${userId}/lock`, { method: 'POST' });
+                loadUsers();
+                showToast('User status updated', 'success');
+            } catch (e) { showToast(e.message, 'error'); }
+        }
+
+        async function deleteUser(userId, username) {
+            if (!confirm(`Delete user "${username}"? This cannot be undone.`)) return;
+            try {
+                await AuthManager.apiRequest(`/api/admin/users/${userId}`, { method: 'DELETE' });
+                loadUsers();
+                showToast(`User ${username} deleted`, 'success');
+            } catch (e) { showToast(e.message, 'error'); }
+        }
+
+        async function loadAuditLogs() {
+            try {
+                const data = await AuthManager.apiRequest('/api/admin/audit-logs');
+                const tbody = document.getElementById('audit-table-body');
+                tbody.innerHTML = data.logs.map(l => `
+                    <tr>
+                        <td style="white-space:nowrap">${formatDate(l.timestamp)}</td>
+                        <td><span class="badge badge-info">${l.action}</span></td>
+                        <td class="font-mono" style="font-size:var(--text-xs)">${(l.user_id || '—').substring(0, 8)}</td>
+                        <td>${l.ip_address || '—'}</td>
+                        <td class="text-muted">${l.details || '—'}</td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5" class="text-center text-muted">No logs</td></tr>';
+            } catch (e) { showToast(e.message, 'error'); }
+        }
+
+        async function loadBackups() {
+            try {
+                const data = await AuthManager.apiRequest('/api/admin/backups');
+                const container = document.getElementById('backups-list');
+                if (!data.backups.length) {
+                    container.innerHTML = '<div class="card text-muted text-center">No backups yet</div>';
+                    return;
+                }
+                container.innerHTML = data.backups.map(b => `
+                    <div class="card card-compact flex justify-between items-center">
+                        <div>
+                            <strong>${b.filename}</strong>
+                            <p class="text-muted" style="font-size:var(--text-xs)">${formatDate(b.created_at)} · ${formatBytes(b.file_size_bytes)}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) { showToast(e.message, 'error'); }
+        }
+
+        async function triggerBackup() {
+            try {
+                await AuthManager.apiRequest('/api/admin/backups', { method: 'POST' });
+                showToast('Backup created successfully', 'success');
+                loadBackups();
+            } catch (e) { showToast(e.message, 'error'); }
+        }
+
+        function formatBytes(bytes) {
+            if (!bytes) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!AuthManager.getAccessToken()) {
+                window.location.href = '/';
+                return;
+            }
+            loadAdminStats();
+            loadUsers();
+            loadAuditLogs();
+            loadBackups();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FaceAuth Dashboard — Manage your profile, sessions, and security settings.">
+    <title>FaceAuth — Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body>
+    <div class="bg-particles"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/dashboard" class="navbar-brand">
+            <div class="logo-icon">🔐</div>
+            <span class="gradient-text">FaceAuth</span>
+        </a>
+        <div class="navbar-actions">
+            <div class="nav-notifications" id="nav-notifications" title="Notifications">
+                <span class="nav-bell">🔔</span>
+                <span class="nav-badge" id="notif-badge">0</span>
+            </div>
+            <div class="nav-user-pill" id="nav-user-pill">
+                <div class="nav-avatar" id="nav-avatar">U</div>
+                <span class="nav-username" id="nav-user">—</span>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="handleLogout()" id="logout-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Logout
+            </button>
+        </div>
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-profile">
+                <div class="sidebar-avatar" id="sidebar-avatar">U</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-username" id="sidebar-username">User</div>
+                    <div class="sidebar-role" id="sidebar-role">Member</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">Main</div>
+            <ul class="sidebar-nav">
+                <li><button class="sidebar-link active" data-section="overview" onclick="showSection('overview')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Overview
+                </button></li>
+                <li><button class="sidebar-link" data-section="profile" onclick="showSection('profile')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Profile
+                </button></li>
+                <li><button class="sidebar-link" data-section="sessions" onclick="showSection('sessions')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    Sessions
+                </button></li>
+                <li><button class="sidebar-link" data-section="history" onclick="showSection('history')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Login History
+                </button></li>
+                <li><button class="sidebar-link" data-section="audit" onclick="showSection('audit')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Audit Log
+                </button></li>
+            </ul>
+
+            <div class="sidebar-section">Security</div>
+            <ul class="sidebar-nav">
+                <li><button class="sidebar-link" data-section="security" onclick="showSection('security')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Security Settings
+                </button></li>
+                <li><button class="sidebar-link" data-section="face" onclick="showSection('face')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>
+                    Face Data
+                </button></li>
+                <li><button class="sidebar-link" data-section="voice" onclick="showSection('voice')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+                    Voice Data
+                </button></li>
+                <li><button class="sidebar-link" data-section="vault" onclick="showSection('vault')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+                    Identity Vault
+                </button></li>
+                <li><button class="sidebar-link" data-section="export" onclick="showSection('export')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Data Export
+                </button></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-security-score">
+                    <div class="mini-score-ring" id="mini-score-ring">
+                        <svg viewBox="0 0 36 36">
+                            <path class="ring-bg" d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"/>
+                            <path class="ring-fill" id="mini-ring-fill" d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3" stroke-dasharray="0, 100"/>
+                        </svg>
+                        <span class="mini-score-value" id="mini-score-value">0</span>
+                    </div>
+                    <div>
+                        <div class="mini-score-label">Security Score</div>
+                        <div class="mini-score-status" id="mini-score-status">Calculating...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- ═══════════ OVERVIEW ═══════════ -->
+            <section id="section-overview">
+                <div class="page-header">
+                    <div class="page-header-row">
+                        <div>
+                            <h1 class="page-title">Welcome back, <span class="gradient-text" id="welcome-name">User</span></h1>
+                            <p class="page-subtitle" id="welcome-subtitle">Your account overview and security summary</p>
+                        </div>
+                        <div class="header-actions">
+                            <span class="live-clock" id="live-clock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Score + Stats Row -->
+                <div class="overview-top-grid">
+                    <!-- Security Score Card -->
+                    <div class="card security-score-card" id="security-score-card">
+                        <div class="score-ring-container">
+                            <div class="score-ring" id="score-ring">
+                                <svg viewBox="0 0 120 120">
+                                    <circle class="ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
+                                    <circle class="ring-fill" id="score-ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="8"
+                                        stroke-dasharray="326.73" stroke-dashoffset="326.73"
+                                        stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                                </svg>
+                                <div class="score-inner">
+                                    <span class="score-number" id="score-number">0</span>
+                                    <span class="score-label">/ 100</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="score-details">
+                            <h3>Security Score</h3>
+                            <div class="score-checklist" id="score-checklist">
+                                <div class="score-item" id="check-password"><span class="check-icon">○</span> Strong password set</div>
+                                <div class="score-item" id="check-face"><span class="check-icon">○</span> Face biometric enrolled</div>
+                                <div class="score-item" id="check-voice"><span class="check-icon">○</span> Voice identity enrolled</div>
+                                <div class="score-item" id="check-2fa"><span class="check-icon">○</span> Two-factor authentication</div>
+                                <div class="score-item" id="check-email"><span class="check-icon">○</span> Email verified</div>
+                                <div class="score-item" id="check-recent"><span class="check-icon">○</span> Recent activity reviewed</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-column">
+                        <div class="card stat-card stat-face-card">
+                            <div class="stat-icon-wrap green">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="stat-face">—</div>
+                                <div class="stat-label">Face Status</div>
+                            </div>
+                            <div class="stat-trend up" id="stat-face-trend">Active</div>
+                        </div>
+                        <div class="card stat-card stat-sessions-card">
+                            <div class="stat-icon-wrap cyan">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="stat-sessions">—</div>
+                                <div class="stat-label">Active Sessions</div>
+                            </div>
+                            <div class="stat-trend" id="stat-sessions-max"></div>
+                        </div>
+                        <div class="card stat-card stat-logins-card">
+                            <div class="stat-icon-wrap purple">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="stat-logins">—</div>
+                                <div class="stat-label">Total Logins</div>
+                            </div>
+                            <div class="stat-trend" id="stat-logins-trend"></div>
+                        </div>
+                        <div class="card stat-card stat-voice-card">
+                            <div class="stat-icon-wrap cyan">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="stat-voice">—</div>
+                                <div class="stat-label">Voice Status</div>
+                            </div>
+                            <div class="stat-trend" id="stat-voice-trend"></div>
+                        </div>
+                        <div class="card stat-card stat-2fa-card">
+                            <div class="stat-icon-wrap orange">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="stat-2fa">—</div>
+                                <div class="stat-label">2FA Status</div>
+                            </div>
+                            <div class="stat-trend" id="stat-2fa-trend"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card quick-actions-card mt-6">
+                    <h3 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        Quick Actions
+                    </h3>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action" onclick="showSection('face')">
+                            <div class="qa-icon cyan">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                            </div>
+                            <span>Update Face</span>
+                        </button>
+                        <button class="quick-action" onclick="showSection('security')">
+                            <div class="qa-icon purple">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <span>Enable 2FA</span>
+                        </button>
+                        <button class="quick-action" onclick="showSection('sessions')">
+                            <div class="qa-icon green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </div>
+                            <span>Manage Sessions</span>
+                        </button>
+                        <button class="quick-action" onclick="showSection('export')">
+                            <div class="qa-icon orange">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            </div>
+                            <span>Export Data</span>
+                        </button>
+                        <button class="quick-action" onclick="showSection('history')">
+                            <div class="qa-icon pink">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <span>View History</span>
+                        </button>
+                        <button class="quick-action" onclick="showSection('profile')">
+                            <div class="qa-icon blue">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </div>
+                            <span>Edit Profile</span>
+                        </button>
+                        <button class="quick-action" onclick="showSection('voice')">
+                            <div class="qa-icon cyan">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+                            </div>
+                            <span>Register Voice</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity + Security Alerts -->
+                <div class="overview-bottom-grid mt-6">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <h3 class="card-title">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                Recent Activity
+                            </h3>
+                            <button class="btn btn-ghost btn-sm" onclick="showSection('history')">View All →</button>
+                        </div>
+                        <div class="activity-timeline" id="activity-timeline">
+                            <div class="timeline-loading">
+                                <div class="skeleton" style="height: 48px; margin-bottom: 12px;"></div>
+                                <div class="skeleton" style="height: 48px; margin-bottom: 12px;"></div>
+                                <div class="skeleton" style="height: 48px; margin-bottom: 12px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            Security Recommendations
+                        </h3>
+                        <div class="security-alerts" id="security-alerts">
+                            <div class="skeleton" style="height: 60px; margin-bottom: 12px;"></div>
+                            <div class="skeleton" style="height: 60px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ PROFILE ═══════════ -->
+            <section id="section-profile" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Profile Settings</h1>
+                    <p class="page-subtitle">Manage your account information and preferences</p>
+                </div>
+
+                <div class="profile-layout">
+                    <div class="card profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar-large" id="profile-avatar-large">U</div>
+                            <div class="profile-info">
+                                <h3 id="profile-display-name">User</h3>
+                                <span class="badge badge-info" id="profile-role-badge">Member</span>
+                                <p class="text-muted mt-2" id="profile-member-since">Member since —</p>
+                            </div>
+                        </div>
+                        <div class="profile-stats-row">
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="prof-stat-logins">0</span>
+                                <span class="profile-stat-label">Total Logins</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="prof-stat-sessions">0</span>
+                                <span class="profile-stat-label">Active Sessions</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="prof-stat-days">0</span>
+                                <span class="profile-stat-label">Days Active</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="max-width: 560px;">
+                        <h4 class="card-title mb-4">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            Edit Information
+                        </h4>
+                        <form class="flex flex-col gap-4" onsubmit="updateProfile(event)">
+                            <div class="form-group">
+                                <label class="form-label" for="profile-username">Username</label>
+                                <input type="text" class="form-input" id="profile-username" placeholder="Enter username">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="profile-email">Email Address</label>
+                                <input type="email" class="form-input" id="profile-email" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="profile-created">Member Since</label>
+                                <input type="text" class="form-input" id="profile-created" readonly style="opacity: 0.6;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="profile-last-pw">Last Password Change</label>
+                                <input type="text" class="form-input" id="profile-last-pw" readonly style="opacity: 0.6;">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg" id="profile-save-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ SESSIONS ═══════════ -->
+            <section id="section-sessions" class="hidden">
+                <div class="page-header">
+                    <div class="page-header-row">
+                        <div>
+                            <h1 class="page-title">Active Sessions</h1>
+                            <p class="page-subtitle">Manage devices where you're currently signed in</p>
+                        </div>
+                        <button class="btn btn-danger btn-sm" onclick="revokeAllSessions()" id="revoke-all-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            Revoke All Others
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sessions-summary mb-6" id="sessions-summary">
+                    <div class="card card-compact stat-mini">
+                        <span class="stat-mini-value" id="sessions-total">0</span>
+                        <span class="stat-mini-label">Total Sessions</span>
+                    </div>
+                    <div class="card card-compact stat-mini">
+                        <span class="stat-mini-value" id="sessions-max">5</span>
+                        <span class="stat-mini-label">Max Allowed</span>
+                    </div>
+                </div>
+
+                <div id="sessions-list" class="flex flex-col gap-4">
+                    <div class="card text-center text-muted">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p class="mt-4">Loading sessions...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ LOGIN HISTORY ═══════════ -->
+            <section id="section-history" class="hidden">
+                <div class="page-header">
+                    <div class="page-header-row">
+                        <div>
+                            <h1 class="page-title">Login History</h1>
+                            <p class="page-subtitle">Complete log of authentication attempts</p>
+                        </div>
+                        <div class="history-filters">
+                            <select class="form-input form-select" id="history-filter-method" onchange="loadHistory(1)">
+                                <option value="">All Methods</option>
+                                <option value="password">Password</option>
+                                <option value="face">Face</option>
+                                <option value="2fa">2FA</option>
+                            </select>
+                            <select class="form-input form-select" id="history-filter-status" onchange="loadHistory(1)">
+                                <option value="">All Status</option>
+                                <option value="success">Success</option>
+                                <option value="failed">Failed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Method</th>
+                                    <th>IP Address</th>
+                                    <th>Device</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="full-history-body">
+                                <tr><td colspan="5" class="text-center text-muted">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <span class="text-muted" style="font-size: var(--text-xs);" id="history-total-info">—</span>
+                        <div class="pagination-controls">
+                            <button class="btn btn-ghost btn-sm" id="history-prev" onclick="loadHistory(currentPage - 1)" disabled>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                                Prev
+                            </button>
+                            <span class="text-muted page-indicator" id="history-page-info">Page 1</span>
+                            <button class="btn btn-ghost btn-sm" id="history-next" onclick="loadHistory(currentPage + 1)">
+                                Next
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ AUDIT LOG ═══════════ -->
+            <section id="section-audit" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Audit Log</h1>
+                    <p class="page-subtitle">Detailed record of all account actions and security events</p>
+                </div>
+
+                <div class="card">
+                    <div class="audit-timeline" id="audit-timeline">
+                        <div class="skeleton" style="height: 48px; margin-bottom: 12px;"></div>
+                        <div class="skeleton" style="height: 48px; margin-bottom: 12px;"></div>
+                        <div class="skeleton" style="height: 48px; margin-bottom: 12px;"></div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-muted" style="font-size: var(--text-sm);">Audit logs are generated from your login history and account activity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ SECURITY ═══════════ -->
+            <section id="section-security" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Security Settings</h1>
+                    <p class="page-subtitle">Manage your authentication and security preferences</p>
+                </div>
+
+                <div class="security-layout">
+                    <!-- Password Change -->
+                    <div class="card">
+                        <h4 class="card-title mb-4">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Change Password
+                        </h4>
+                        <form class="flex flex-col gap-4" onsubmit="changePassword(event)">
+                            <div class="form-group">
+                                <label class="form-label" for="current-password">Current Password</label>
+                                <div class="input-with-toggle">
+                                    <input type="password" class="form-input" id="current-password" required placeholder="Enter current password">
+                                    <button type="button" class="input-toggle-btn" onclick="togglePasswordVis(this)">👁️</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="new-password">New Password</label>
+                                <div class="input-with-toggle">
+                                    <input type="password" class="form-input" id="new-password" required minlength="8" placeholder="Enter new password" oninput="checkPasswordStrength(this.value)">
+                                    <button type="button" class="input-toggle-btn" onclick="togglePasswordVis(this)">👁️</button>
+                                </div>
+                                <div class="password-strength" id="password-strength">
+                                    <div class="strength-bars">
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                    </div>
+                                    <span class="strength-text" id="strength-text"></span>
+                                </div>
+                                <div class="password-requirements" id="password-requirements">
+                                    <div class="req" id="req-length"><span class="req-icon">○</span> At least 8 characters</div>
+                                    <div class="req" id="req-upper"><span class="req-icon">○</span> One uppercase letter</div>
+                                    <div class="req" id="req-digit"><span class="req-icon">○</span> One digit</div>
+                                    <div class="req" id="req-special"><span class="req-icon">○</span> One special character</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="confirm-password">Confirm New Password</label>
+                                <input type="password" class="form-input" id="confirm-password" required placeholder="Confirm new password">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="change-pw-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                Update Password
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 2FA -->
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="card-title">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                Two-Factor Authentication
+                            </h4>
+                            <span class="badge" id="2fa-badge">—</span>
+                        </div>
+                        <p class="text-muted mb-4" style="font-size: var(--text-sm);">
+                            Add an extra layer of security to your account using an authenticator app like Google Authenticator or Authy.
+                        </p>
+                        <div class="twofa-benefits mb-4">
+                            <div class="benefit-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Prevents unauthorized access even if password is compromised</span>
+                            </div>
+                            <div class="benefit-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Time-based codes expire every 30 seconds</span>
+                            </div>
+                            <div class="benefit-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Recovery codes provided for backup access</span>
+                            </div>
+                        </div>
+                        <div id="2fa-setup-area"></div>
+                        <button class="btn btn-primary" id="2fa-toggle-btn" onclick="toggle2FA()">Enable 2FA</button>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="card danger-zone-card">
+                        <h4 class="card-title text-danger mb-4">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            Danger Zone
+                        </h4>
+                        <div class="danger-actions">
+                            <div class="danger-action">
+                                <div>
+                                    <strong>Revoke All Sessions</strong>
+                                    <p class="text-muted" style="font-size: var(--text-xs);">Sign out from all devices immediately</p>
+                                </div>
+                                <button class="btn btn-outline btn-sm" onclick="revokeAllSessions()">Revoke All</button>
+                            </div>
+                            <div class="danger-action">
+                                <div>
+                                    <strong>Delete Face Data</strong>
+                                    <p class="text-muted" style="font-size: var(--text-xs);">Remove your biometric data permanently</p>
+                                </div>
+                                <button class="btn btn-danger btn-sm" onclick="confirmDeleteFace()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ FACE DATA ═══════════ -->
+            <section id="section-face" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Face Data Management</h1>
+                    <p class="page-subtitle">Re-capture or verify your biometric data</p>
+                </div>
+
+                <div class="face-layout">
+                    <div class="card face-camera-card">
+                        <div class="camera-container mb-6">
+                            <video id="dash-camera" class="camera-video" autoplay playsinline muted></video>
+                            <canvas id="dash-canvas" class="camera-canvas"></canvas>
+                            <div class="camera-overlay">
+                                <div class="face-guide" id="dash-face-guide"></div>
+                            </div>
+                            <div class="camera-status">
+                                <span class="status-dot" id="dash-status-dot"></span>
+                                <span id="dash-status-text">Camera off</span>
+                            </div>
+                        </div>
+
+                        <div class="face-actions">
+                            <button class="btn btn-outline btn-lg" onclick="startDashCamera()" id="face-start-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                                Start Camera
+                            </button>
+                            <button class="btn btn-primary btn-lg" onclick="updateFace()" id="face-update-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                                Update Face
+                            </button>
+                            <button class="btn btn-outline btn-lg" onclick="verifyFace()" id="face-verify-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Verify Face
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card face-info-card">
+                        <h4 class="card-title mb-4">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            Biometric Information
+                        </h4>
+                        <div class="face-info-list">
+                            <div class="face-info-item">
+                                <span class="face-info-label">Status</span>
+                                <span class="badge" id="face-status-badge">—</span>
+                            </div>
+                            <div class="face-info-item">
+                                <span class="face-info-label">Encryption</span>
+                                <span class="badge badge-info">AES-256-GCM</span>
+                            </div>
+                            <div class="face-info-item">
+                                <span class="face-info-label">Encoding Size</span>
+                                <span class="text-secondary">128-dimensional vector</span>
+                            </div>
+                        </div>
+
+                        <div class="face-tips mt-6">
+                            <h5 class="mb-2" style="font-size: var(--text-sm); color: var(--text-secondary);">Tips for Best Results</h5>
+                            <div class="tip-item">💡 Ensure good, even lighting on your face</div>
+                            <div class="tip-item">📐 Face the camera directly, eyes level</div>
+                            <div class="tip-item">🚫 Remove glasses or hats if possible</div>
+                            <div class="tip-item">📏 Keep your face within the guide circle</div>
+                            <div class="tip-item">🔄 Stay still while capturing</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ VOICE DATA ═══════════ -->
+            <section id="section-voice" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Voice Biometrics</h1>
+                    <p class="page-subtitle">Enroll your voice for multi-modal zero-trust authentication</p>
+                </div>
+
+                <div class="face-layout">
+                    <div class="card face-camera-card">
+                        <div class="card-header-row mb-6">
+                            <h4 class="card-title">
+                                <span class="qa-icon cyan" style="width: 28px; height: 28px; font-size: var(--text-sm);">🛡️</span>
+                                Zero-Trust Voice Enrollment
+                            </h4>
+                            <span class="badge badge-outline" id="voice-signal-status" style="font-size: 10px;">IDLE</span>
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="w-full flex gap-4 mb-6">
+                                <!-- Volume Meter -->
+                                <div class="volume-meter-container">
+                                    <div id="volume-meter-fill" class="volume-meter-fill"></div>
+                                </div>
+                                
+                                <!-- Visualizer -->
+                                <div class="w-full bg-dark rounded overflow-hidden relative" style="height: 120px; border: 1px solid rgba(0, 210, 255, 0.15); box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);">
+                                    <canvas id="enroll-voice-visualizer" width="500" height="120" style="width: 100%; height: 100%;"></canvas>
+                                    <div class="scanning-bar" id="voice-scanning-bar"></div>
+                                </div>
+                            </div>
+
+                            <!-- Biometric Signature -->
+                            <div class="biometric-sig-container mb-6">
+                                <svg id="biometric-sig-svg" viewBox="0 0 200 60" preserveAspectRatio="none">
+                                    <path id="sig-path-1" d="M10,30 Q30,10 50,30 T90,30 T130,30 T170,30" class="sig-path"></path>
+                                    <path id="sig-path-2" d="M15,35 Q35,15 55,35 T95,35 T135,35 T175,35" class="sig-path"></path>
+                                    <path id="sig-path-3" d="M20,25 Q40,5 60,25 T100,25 T140,25 T180,25" class="sig-path"></path>
+                                </svg>
+                                <p class="sig-label">BIOMETRIC SIGNATURE RECONSTRUCTION</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-4 w-full">
+                            <label class="form-label text-center" for="enroll-phrase" style="font-size: 0.9rem;">Security Challenge Phrase</label>
+                            <input type="text" id="enroll-phrase" class="form-input text-center" placeholder="e.g. Identity verified by voice" autocomplete="off">
+                            <p class="text-muted text-center mt-2" style="font-size: 0.8rem;">You must repeat this phrase when authenticating.</p>
+                        </div>
+
+                        <div id="voice-enroll-error" class="alert alert-danger hidden w-full mb-4">
+                            <span>⚠️</span>
+                            <span id="voice-enroll-error-text"></span>
+                        </div>
+
+                        <!-- Sample progress indicators -->
+                        <div class="voice-samples-progress mb-4">
+                            <div class="sample-dot" id="voice-dot-1"></div>
+                            <div class="sample-dot" id="voice-dot-2"></div>
+                            <div class="sample-dot" id="voice-dot-3"></div>
+                        </div>
+
+                        <!-- Enrollment requires 3 samples for average embedding -->
+                        <div class="face-actions mt-2 w-full flex flex-col gap-3">
+                            <p class="text-center w-full" style="font-size: 0.9rem; font-weight: 500;" id="voice-enrollment-progress">
+                                Recorded Samples: <span id="voice-sample-count">0</span> / 3
+                            </p>
+                            
+                            <div class="flex gap-2 w-full">
+                                <button class="btn btn-outline btn-lg" id="voice-record-btn" onmousedown="startVoiceEnrollment()" onmouseup="stopVoiceEnrollment()" ontouchstart="startVoiceEnrollment()" ontouchend="stopVoiceEnrollment()" style="flex: 3;">
+                                    🎙️ Hold to Record
+                                </button>
+                                <button class="btn btn-ghost btn-lg" id="voice-reset-btn" onclick="resetVoiceEnrollment()" title="Reset Samples" style="flex: 1; padding: 0; min-width: 50px;">
+                                    🔄
+                                </button>
+                            </div>
+                            <button class="btn btn-primary btn-lg w-full" id="voice-submit-btn" onclick="submitVoiceSamples()" disabled>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                                Save Voice ID
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card face-info-card">
+                        <div class="card-header-row mb-4">
+                            <h4 class="card-title">
+                                <span class="qa-icon orange" style="width: 28px; height: 28px; font-size: var(--text-sm);">🔑</span>
+                                Credential Vault
+                            </h4>
+                        </div>
+                        
+                        <div class="credential-info mb-4">
+                            <p class="text-xs text-muted mb-2">CURRENT PASSPHRASE</p>
+                            <div class="flex items-center gap-2 bg-dark p-2 rounded border border-subtle">
+                                <code id="current-passphrase-display" class="flex-grow text-cyan" style="font-size: 0.8rem;">********</code>
+                                <button class="btn btn-ghost btn-xs" onclick="togglePassphraseVisibility()">👁️</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="form-label" for="update-phrase-input" style="font-size: 0.8rem;">Update Secret Phrase</label>
+                            <input type="text" id="update-phrase-input" class="form-input text-xs" placeholder="Minimum 3 words...">
+                            <button class="btn btn-outline btn-sm w-full mt-2" onclick="updateVoicePassphrase()">Update Phrase</button>
+                        </div>
+
+                        <hr class="border-subtle my-4">
+
+                        <div class="download-zone">
+                            <p class="text-xs text-muted mb-2">OFFLINE ACCESS</p>
+                            <button class="btn btn-primary btn-sm w-full" onclick="downloadVoiceKey()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Download Voice Key (.json)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ DATA EXPORT ═══════════ -->
+            <section id="section-export" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Data Export</h1>
+                    <p class="page-subtitle">Download your data in various formats</p>
+                </div>
+
+                <div class="export-grid">
+                    <div class="card export-card" onclick="exportData('json')">
+                        <div class="export-icon json">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
+                        <div class="export-info">
+                            <h4>Export as JSON</h4>
+                            <p class="text-muted">Complete structured data export including profile, login history, and settings.</p>
+                        </div>
+                        <div class="export-badge">.json</div>
+                    </div>
+                    <div class="card export-card" onclick="exportData('csv')">
+                        <div class="export-icon csv">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
+                        <div class="export-info">
+                            <h4>Export as CSV</h4>
+                            <p class="text-muted">Spreadsheet-compatible login history data for analysis.</p>
+                        </div>
+                        <div class="export-badge">.csv</div>
+                    </div>
+                </div>
+
+                <div class="card mt-6">
+                    <h4 class="card-title mb-4">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        About Your Data
+                    </h4>
+                    <div class="data-privacy-info">
+                        <div class="privacy-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>Face data is encrypted with AES-256-GCM and never stored in plain text</span>
+                        </div>
+                        <div class="privacy-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>Login history is retained for security auditing purposes</span>
+                        </div>
+                        <div class="privacy-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>You can request full data deletion at any time</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- ═══════════ IDENTITY VAULT ═══════════ -->
+            <section id="section-vault" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Biometric Identity Vault</h1>
+                    <p class="page-subtitle">Your reference biometric markers stored for authentication</p>
+                </div>
+
+                <div class="vault-grid">
+                    <!-- Face Identity Card -->
+                    <div class="card vault-card face-vault">
+                        <div class="card-header-row mb-4">
+                            <h4 class="card-title">
+                                <span class="qa-icon blue" style="width: 28px; height: 28px; font-size: var(--text-sm);">👤</span>
+                                Reference Face Identity
+                            </h4>
+                        </div>
+                        <div class="vault-preview-container">
+                            <div id="vault-face-placeholder" class="vault-placeholder">
+                                <div class="spinner"></div>
+                                <p>Loading reference image...</p>
+                            </div>
+                            <img id="vault-face-img" src="" alt="Stored Face Scan" class="vault-img hidden">
+                        </div>
+                        <div class="vault-meta mt-4">
+                            <p class="text-xs text-muted">This image is used as the "Golden Frame" for all future face verifications.</p>
+                        </div>
+                    </div>
+
+                    <!-- Voice Identity Card -->
+                    <div class="card vault-card voice-vault">
+                        <div class="card-header-row mb-4">
+                            <h4 class="card-title">
+                                <span class="qa-icon cyan" style="width: 28px; height: 28px; font-size: var(--text-sm);">🎙️</span>
+                                Reference Voice ID
+                            </h4>
+                        </div>
+                        <div class="vault-audio-container">
+                            <div id="vault-voice-placeholder" class="vault-placeholder">
+                                <div class="spinner"></div>
+                                <p>Loading voice sample...</p>
+                            </div>
+                            <div id="vault-voice-player" class="hidden">
+                                <div class="audio-waveform-mini" id="vault-waveform"></div>
+                                <audio id="vault-audio-element" controls class="w-full mt-4"></audio>
+                                <p class="text-center mt-4 text-cyan" style="font-size: 0.9rem; font-weight: 500;">
+                                    "Repeat this phrase exactly during login"
+                                </p>
+                            </div>
+                        </div>
+                        <div class="vault-meta mt-6">
+                            <p class="text-xs text-muted">Vocal signature extracted from your enrollment recording.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notification-panel">
+        <div class="notif-header">
+            <h4>Notifications</h4>
+            <button class="btn btn-ghost btn-sm" onclick="clearNotifications()">Clear All</button>
+        </div>
+        <div class="notif-list" id="notif-list">
+            <div class="text-center text-muted" style="padding: 24px;">No notifications</div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/storage.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/camera.js"></script>
+    <script src="/js/audio_manager.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FaceAuth — Secure biometric authentication with face recognition. Login with your face or password.">
+    <title>FaceAuth | Secure Biometric Login</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body>
+    <div class="bg-particles"></div>
+
+    <div class="split-layout">
+        <!-- Left: Auth Form -->
+        <div class="auth-panel glass-card-premium reveal active">
+            <div class="auth-logo">
+                <div class="auth-logo-icon">🔐</div>
+                <div>
+                    <div class="auth-logo-text gradient-text">FaceAuth</div>
+                    <div class="text-muted" style="font-size: var(--text-xs); margin-top: 2px;">Biometric Authentication</div>
+                </div>
+            </div>
+
+            <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Welcome back</h1>
+            <p class="text-muted mb-8">Sign in with your credentials or use face recognition</p>
+
+            <!-- Tabs -->
+            <div class="tabs mb-8" id="login-tabs">
+                <button class="tab active" data-tab="password" onclick="switchTab('password')" title="Password Login">
+                    🔑 Password
+                </button>
+                <button class="tab" data-tab="face" onclick="switchTab('face')" title="Face Login Only">
+                    👤 Face
+                </button>
+                <button class="tab" data-tab="fusion" onclick="switchTab('fusion')" title="Multi-Modal: Face + Voice">
+                    🎤 Dual Auth
+                </button>
+                <button class="tab" data-tab="voice" onclick="switchTab('voice')" title="Voice Login Only">
+                    🎙️ Voice
+                </button>
+            </div>
+
+            <!-- Password Login Form -->
+            <form id="password-form" class="flex flex-col gap-6" onsubmit="handlePasswordLogin(event)">
+                <div class="form-group scroll-fade">
+                    <label class="form-label" for="login-username">👤 Username</label>
+                    <input type="text" id="login-username" class="form-input" placeholder="Enter your username" 
+                           autocomplete="username" required>
+                </div>
+
+                <div class="form-group scroll-fade">
+                    <label class="form-label" for="login-password">🔒 Password</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="Enter your password" 
+                           autocomplete="current-password" required>
+                </div>
+
+                <div id="login-error" class="alert alert-danger hidden">
+                    <span>⚠️</span>
+                    <span id="login-error-text"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-full mt-2" id="login-btn">
+                    Sign In
+                </button>
+            </form>
+
+            <!-- Face Login Form -->
+            <div id="face-form" class="hidden flex flex-col gap-6 items-center">
+                <p class="text-secondary text-center" style="font-size: var(--text-sm);">
+                    Position your face in the camera and click "Authenticate"
+                </p>
+
+                <div id="face-login-error" class="alert alert-danger hidden w-full">
+                    <span>⚠️</span>
+                    <span id="face-login-error-text"></span>
+                </div>
+
+                <div id="face-match-result" class="hidden text-center w-full">
+                    <div class="confidence-ring" style="margin: 0 auto; filter: drop-shadow(0 0 10px var(--accent-green));">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle class="ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
+                            <circle class="ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="8"
+                                    stroke="var(--accent-green)" 
+                                    stroke-dasharray="326.7"
+                                    id="confidence-circle"/>
+                        </svg>
+                        <span class="confidence-value" id="confidence-value" style="color: var(--accent-green);">0%</span>
+                    </div>
+                    <p class="text-secondary mt-4 font-bold" id="match-text"></p>
+                </div>
+
+
+                <button type="button" class="btn btn-primary btn-lg btn-full" id="face-auth-btn" onclick="handleFaceLogin()">
+                    👤 Authenticate with Face
+                </button>
+            </div>
+
+            <!-- Fusion Multi-Modal Form -->
+            <div id="fusion-form" class="hidden flex flex-col gap-4 items-center">
+                <p class="text-secondary text-center" style="font-size: var(--text-sm);">
+                    High-Security Mode: Requires simultaneous Face and Voice verification.
+                </p>
+                
+                <div class="form-group w-full mb-2">
+                    <label class="form-label text-center" for="fusion-phrase" style="font-size: 0.8rem;">Spoken Passphrase / Challenge</label>
+                    <input type="text" id="fusion-phrase" class="form-input text-center" placeholder="e.g. My voice is my password" autocomplete="off">
+                </div>
+
+                <!-- WebRTC Waveform Canvas -->
+                <div class="w-full bg-dark rounded overflow-hidden" style="height: 60px; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                    <canvas id="voice-visualizer" width="400" height="60" style="width: 100%; height: 100%;"></canvas>
+                </div>
+
+                <div id="fusion-login-error" class="alert alert-danger hidden w-full">
+                    <span>⚠️</span>
+                    <span id="fusion-login-error-text"></span>
+                </div>
+
+                <div class="flex gap-2 w-full mt-2">
+                    <button type="button" class="btn btn-outline btn-lg" id="fusion-record-btn" style="flex: 1;" onmousedown="startFusionRecording()" onmouseup="stopFusionRecordingAndAuth()" ontouchstart="startFusionRecording()" ontouchend="stopFusionRecordingAndAuth()">
+                        🎙️ Hold to Speak
+                    </button>
+                </div>
+                <p class="text-muted text-xs text-center mt-1">Look at camera and hold button while speaking.</p>
+            </div>
+
+            <!-- Voice Only Login Form -->
+            <div id="voice-form" class="hidden flex flex-col gap-4 items-center">
+                <p class="text-secondary text-center" style="font-size: var(--text-sm);">
+                    Authenticate using ONLY your biometric voice signature.
+                </p>
+                
+                <div class="form-group w-full mb-2">
+                    <label class="form-label text-center" for="voice-only-phrase" style="font-size: 0.8rem;">Your Secret Voice Passphrase</label>
+                    <input type="text" id="voice-only-phrase" class="form-input text-center" placeholder="Speak your registered phrase..." autocomplete="off">
+                </div>
+
+                <div class="w-full bg-dark rounded overflow-hidden" style="height: 80px; border: 1px solid rgba(0, 210, 255, 0.1); box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                    <canvas id="voice-only-visualizer" width="400" height="80" style="width: 100%; height: 100%;"></canvas>
+                </div>
+
+                <div id="voice-login-error" class="alert alert-danger hidden w-full">
+                    <span>⚠️</span>
+                    <span id="voice-login-error-text"></span>
+                </div>
+
+                <div class="flex gap-2 w-full mt-2">
+                    <button type="button" class="btn btn-primary btn-lg" id="voice-record-btn" style="flex: 1;" 
+                            onmousedown="startVoiceLoginRecording()" onmouseup="stopVoiceLoginRecordingAndAuth()"
+                            ontouchstart="startVoiceLoginRecording()" ontouchend="stopVoiceLoginRecordingAndAuth()">
+                        🎤 Hold to Sign In
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2FA Dialog -->
+            <div id="2fa-section" class="hidden flex flex-col gap-6 mt-4">
+                <div class="alert alert-info">
+                    <span>🔐</span>
+                    <span>Two-factor authentication required. Enter the code from your authenticator app.</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="2fa-code">Authentication Code</label>
+                    <input type="text" id="2fa-code" class="form-input font-mono" placeholder="000000" 
+                           maxlength="6" style="text-align: center; font-size: var(--text-3xl); letter-spacing: 0.5em; height: 80px;">
+                </div>
+
+                <button type="button" class="btn btn-primary btn-lg btn-full" onclick="handle2FA()">
+                    Verify Identity
+                </button>
+            </div>
+
+            <div class="flex justify-between items-center mt-10">
+                <a href="/register" class="text-accent" style="font-size: var(--text-sm);">
+                    Create a secure account →
+                </a>
+            </div>
+        </div>
+
+        <!-- Right: Camera Feed -->
+        <div class="camera-panel">
+            <div class="live-status mb-4" style="justify-content: center;">
+                <span class="pulse-dot"></span>
+                Secure Neural Stream
+            </div>
+            <h3 class="text-center mb-2 gradient-text">Biometric Verification</h3>
+            <p class="text-muted text-center mb-8" style="font-size: var(--text-sm); max-width: 360px;">
+                Edge-processed neural verification. No data is transmitted during capture.
+            </p>
+            
+            <div class="camera-container mb-6" id="login-camera-container">
+                                <video id="login-camera" class="camera-video" autoplay playsinline muted></video>
+                                <canvas id="login-canvas" class="camera-canvas"></canvas>
+                                <div class="camera-overlay">
+                                    <div class="face-guide" id="login-face-guide"></div>
+                                </div>
+                                <div class="camera-status">
+                                    <span class="status-dot" id="login-status-dot"></span>
+                                    <span id="login-status-text">Positioning...</span>
+                                </div>
+            </div>
+
+            <div class="w-full flex justify-between items-center mb-2 px-2" style="max-width: 480px;">
+                <span class="text-xs font-semibold text-muted tracking-widest uppercase">Stream Integrity</span>
+            </div>
+            <div class="quality-meter" style="max-width: 480px; width: 100%;">
+                <div class="quality-fill" id="login-quality-fill" style="width: 0%"></div>
+            </div>
+            <p class="text-muted text-center mt-3" style="font-size: var(--text-xs);" id="login-quality-text">
+                Stability: Initializing...
+            </p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/storage.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/camera.js"></script>
+    <script src="/js/audio_manager.js"></script>
+    <script>
+        // ── Tab Switching ────────────────────────────────────
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+
+            document.getElementById('password-form').classList.toggle('hidden', tab !== 'password');
+            document.getElementById('face-form').classList.toggle('hidden', tab !== 'face');
+            document.getElementById('fusion-form').classList.toggle('hidden', tab !== 'fusion');
+            document.getElementById('voice-form').classList.toggle('hidden', tab !== 'voice');
+            document.getElementById('2fa-section').classList.add('hidden');
+
+            // Handle Camera Lifecycle
+            if (tab === 'face' || tab === 'fusion') {
+                document.getElementById('login-status-text').textContent = 'Starting camera...';
+                document.getElementById('login-status-dot').className = 'status-dot';
+                CameraManager.init('login-camera', {
+                    onReady: () => {
+                        document.getElementById('login-status-text').textContent = 'Camera ready';
+                        document.getElementById('login-status-dot').className = 'status-dot success';
+                    },
+                    onError: (err) => {
+                        document.getElementById('login-status-text').textContent = 'Camera unavailable';
+                        document.getElementById('login-status-dot').className = 'status-dot error';
+                    },
+                });
+            } else {
+                CameraManager.stop();
+                if (window.VoiceManager) window.VoiceManager.stop();
+                document.getElementById('login-status-text').textContent = 'Camera off';
+                document.getElementById('login-status-dot').className = 'status-dot';
+                document.getElementById('login-face-guide').classList.remove('detected', 'error');
+            }
+        }
+
+        // ── Password Login ───────────────────────────────────
+        async function handlePasswordLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            const errorDiv = document.getElementById('login-error');
+            const errorText = document.getElementById('login-error-text');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Signing in...';
+            errorDiv.classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: document.getElementById('login-username').value,
+                        password: document.getElementById('login-password').value,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || 'Login failed');
+                }
+
+                if (data.requires_2fa) {
+                    window._temp2FAToken = data.temp_token;
+                    document.getElementById('2fa-section').classList.remove('hidden');
+                    document.getElementById('2fa-code').focus();
+                    showToast('2FA verification required', 'info');
+                    return;
+                }
+
+                // Successful login
+                AuthManager.setTokens(data.access_token, data.refresh_token);
+                AuthManager.setUser(data.user);
+                showToast('Login successful!', 'success');
+
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 500);
+
+            } catch (err) {
+                errorText.textContent = err.message;
+                errorDiv.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Sign In';
+            }
+        }
+
+        // ── Face Login ───────────────────────────────────────
+        async function handleFaceLogin() {
+            const btn = document.getElementById('face-auth-btn');
+            const errorDiv = document.getElementById('face-login-error');
+            const errorText = document.getElementById('face-login-error-text');
+            const resultDiv = document.getElementById('face-match-result');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Scanning...';
+            errorDiv.classList.add('hidden');
+            resultDiv.classList.add('hidden');
+
+            try {
+                // Capture frame from camera
+                const imageData = CameraManager.captureFrame('login-camera', 'login-canvas');
+                if (!imageData) throw new Error('Failed to capture camera frame');
+
+                const response = await fetch('/api/auth/face-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ face_image: imageData }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || 'Face recognition failed');
+                }
+
+                if (data.requires_2fa) {
+                    window._temp2FAToken = data.temp_token;
+                    document.getElementById('2fa-section').classList.remove('hidden');
+                    showConfidence(data.confidence || 0);
+                    showToast('Face recognized — 2FA required', 'info');
+                    return;
+                }
+
+                // Show confidence result
+                showConfidence(data.face_match?.confidence || 0);
+                document.getElementById('match-text').textContent = 'Identity Verified ✓';
+
+                // Login successful
+                CameraManager.stop(); // Turn off immediately after successful capture
+                AuthManager.setTokens(data.access_token, data.refresh_token);
+                AuthManager.setUser(data.user);
+                showToast('Face authentication successful!', 'success');
+
+                // Update face guide
+                document.getElementById('login-face-guide').classList.add('detected');
+
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1200);
+
+            } catch (err) {
+                errorText.textContent = err.message;
+                errorDiv.classList.remove('hidden');
+                document.getElementById('login-face-guide').classList.add('error');
+                setTimeout(() => {
+                    document.getElementById('login-face-guide').classList.remove('error');
+                }, 2000);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '👤 Authenticate with Face';
+            }
+        }
+
+        function showConfidence(confidence) {
+            const resultDiv = document.getElementById('face-match-result');
+            resultDiv.classList.remove('hidden');
+
+            const circle = document.getElementById('confidence-circle');
+            const circumference = 2 * Math.PI * 52; // r=52
+            const offset = circumference - (confidence / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+
+            const valueEl = document.getElementById('confidence-value');
+            let current = 0;
+            const step = confidence / 30;
+            const interval = setInterval(() => {
+                current += step;
+                if (current >= confidence) {
+                    current = confidence;
+                    clearInterval(interval);
+                }
+                valueEl.textContent = Math.round(current) + '%';
+            }, 20);
+        }
+
+        // ── 2FA ──────────────────────────────────────────────
+        async function handle2FA() {
+            const code = document.getElementById('2fa-code').value;
+            if (code.length !== 6) {
+                showToast('Please enter a 6-digit code', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/verify-2fa', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        code: code,
+                        temp_token: window._temp2FAToken,
+                    }),
+                });
+
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.detail || '2FA verification failed');
+
+                AuthManager.setTokens(data.access_token, data.refresh_token);
+                AuthManager.setUser(data.user);
+                showToast('Authentication complete!', 'success');
+
+                setTimeout(() => { window.location.href = '/dashboard'; }, 500);
+
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+
+        // ── Initialize ──────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if already logged in
+            if (AuthManager.getAccessToken()) {
+                window.location.href = '/dashboard';
+                return;
+            }
+            // Camera will init when switching to the Face Login tab
+            document.getElementById('login-status-text').textContent = 'Camera off';
+            document.getElementById('login-status-dot').className = 'status-dot';
+        });
+
+        // ── Fusion Multi-Modal Login ──────────────────────────
+        async function startFusionRecording() {
+            try {
+                const hasPic = CameraManager.isActive();
+                if (!hasPic) throw new Error("Camera not active.");
+
+                const hasMic = await window.VoiceManager.requestPermission();
+                if (!hasMic) throw new Error("Microphone permission denied.");
+
+                document.getElementById('fusion-record-btn').innerHTML = '🔴 Recording...';
+                document.getElementById('fusion-record-btn').classList.add('border-danger');
+                document.getElementById('fusion-login-error').classList.add('hidden');
+
+                window.VoiceManager.startRecording();
+                window.VoiceManager.startVisualizer('voice-visualizer');
+            } catch (err) {
+                const errDiv = document.getElementById('fusion-login-error');
+                document.getElementById('fusion-login-error-text').textContent = err.message;
+                errDiv.classList.remove('hidden');
+            }
+        }
+
+        async function stopFusionRecordingAndAuth() {
+            if (!window.VoiceManager.mediaRecorder || window.VoiceManager.mediaRecorder.state !== 'recording') return;
+            
+            const btn = document.getElementById('fusion-record-btn');
+            btn.innerHTML = '<span class="spinner" style="width:16px;height:16px;"></span> Verifying Identity...';
+            btn.classList.remove('border-danger');
+            btn.disabled = true;
+
+            try {
+                // 1. Get audio blob
+                const audioBlob = await window.VoiceManager.stopRecording();
+                window.VoiceManager.stopVisualizer();
+
+                // 2. Get face frame
+                const faceDataUrl = CameraManager.captureFrame('login-camera', 'login-canvas', 480);
+                if (!faceDataUrl) throw new Error('Failed to capture face. Ensure camera is unobstructed.');
+
+                const phrase = document.getElementById('fusion-phrase').value.trim();
+                const words = phrase.split(/\s+/).filter(w => w.length > 0);
+                if (words.length < 3) {
+                    throw new Error("Challenge phrase must contain at least 3 words.");
+                }
+
+                // 3. Prepare Multi-Part Form Data
+                const formData = new FormData();
+                formData.append('face_image', faceDataUrl);
+                formData.append('voice_audio', audioBlob, 'live_auth.webm');
+                formData.append('phrase', phrase);
+
+                // 4. Send to fusion engine
+                const response = await fetch('/api/auth/fusion-login', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    if (data.requires_2fa) {
+                        window._temp2FAToken = data.temp_token;
+                        document.getElementById('fusion-form').classList.add('hidden');
+                        document.getElementById('2fa-section').classList.remove('hidden');
+                        document.getElementById('login-tabs').classList.add('hidden');
+                        CameraManager.stop();
+                        return;
+                    }
+                    throw new Error(data.detail || 'Multi-modal fusion failed');
+                }
+
+                // Success
+                CameraManager.stop(); 
+                AuthManager.setTokens(data.access_token, data.refresh_token);
+                AuthManager.setUser(data.user);
+                showToast('Multi-Modal Identity Verified! ✓', 'success');
+
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1500);
+
+            } catch (err) {
+                const errDiv = document.getElementById('fusion-login-error');
+                document.getElementById('fusion-login-error-text').textContent = err.message;
+                errDiv.classList.remove('hidden');
+                document.getElementById('login-face-guide').classList.add('error');
+                setTimeout(() => document.getElementById('login-face-guide').classList.remove('error'), 2000);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '🎙️ Hold to Speak';
+            }
+        }
+
+        // ── Voice-Only Login ──────────────────────────────────
+        async function startVoiceLoginRecording() {
+            try {
+                const hasMic = await window.VoiceManager.requestPermission();
+                if (!hasMic) throw new Error("Microphone permission denied.");
+
+                const btn = document.getElementById('voice-record-btn');
+                btn.innerHTML = '🔴 Listening...';
+                btn.classList.add('btn-danger');
+                document.getElementById('voice-login-error').classList.add('hidden');
+
+                window.VoiceManager.startRecording();
+                window.VoiceManager.startVisualizer('voice-only-visualizer');
+            } catch (err) {
+                const errDiv = document.getElementById('voice-login-error');
+                document.getElementById('voice-login-error-text').textContent = err.message;
+                errDiv.classList.remove('hidden');
+            }
+        }
+
+        async function stopVoiceLoginRecordingAndAuth() {
+            if (!window.VoiceManager.mediaRecorder || window.VoiceManager.mediaRecorder.state !== 'recording') return;
+            
+            const btn = document.getElementById('voice-record-btn');
+            btn.innerHTML = '<span class="spinner" style="width:16px;height:16px;"></span> Identifying Voice...';
+            btn.classList.remove('btn-danger');
+            btn.disabled = true;
+
+            try {
+                const audioBlob = await window.VoiceManager.stopRecording();
+                window.VoiceManager.stopVisualizer();
+
+                const phrase = document.getElementById('voice-only-phrase').value.trim();
+                
+                const formData = new FormData();
+                formData.append('voice_audio', audioBlob, 'login_voice.webm');
+                formData.append('phrase', phrase);
+
+                const response = await fetch('/api/auth/voice-login', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    if (data.requires_2fa) {
+                        window._temp2FAToken = data.temp_token;
+                        document.getElementById('voice-form').classList.add('hidden');
+                        document.getElementById('2fa-section').classList.remove('hidden');
+                        return;
+                    }
+                    throw new Error(data.detail || 'Voice authentication failed');
+                }
+
+                AuthManager.setTokens(data.access_token, data.refresh_token);
+                AuthManager.setUser(data.user);
+                showToast('Welcome back! Voice identity verified.', 'success');
+
+                setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
+
+            } catch (err) {
+                const errDiv = document.getElementById('voice-login-error');
+                document.getElementById('voice-login-error-text').textContent = err.message;
+                errDiv.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '🎤 Hold to Sign In';
+            }
+        }
+    </script>
+</body>
+</html>
